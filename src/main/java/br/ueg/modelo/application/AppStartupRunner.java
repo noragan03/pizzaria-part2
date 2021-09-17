@@ -54,7 +54,13 @@ public class AppStartupRunner implements ApplicationRunner {
 
     @Autowired
     AmigoRepository amigoRepository;
-
+    
+    @Autowired
+    CategoriaRepository categoriaRepository;
+    
+    @Autowired
+    CardapioRepository cardapioRepository;
+    
     @Override
     public void run(ApplicationArguments args) throws Exception {
         LOG.info("Application started with option names : {}",

@@ -12,12 +12,14 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ApiModel(value = "Entidade de transferência de Tipo Amigo")
 public @Data
-class TipoAmigoDTO  implements Serializable {
+class PizzariaDTO  implements Serializable {
 
-    @ApiModelProperty(value = "id do Tipo Amigo")
+	private static final long serialVersionUID = -7360509088273650750L;
+
+	@ApiModelProperty(value = "id da Pizzaria")
     private Long id;
 
-    @ApiModelProperty(value = "Nome do Tipo Amigo")
+    @ApiModelProperty(value = "Nome da Pizzaria")
     private String nome;
 
 }

@@ -9,9 +9,7 @@
 package br.ueg.modelo.application.repository;
 
 
-import br.ueg.modelo.application.dto.FiltroGrupoDTO;
 import br.ueg.modelo.application.dto.FiltroTipoAmigoDTO;
-import br.ueg.modelo.application.model.Grupo;
 import br.ueg.modelo.application.model.TipoAmigo;
 
 import java.util.List;

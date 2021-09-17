@@ -10,14 +10,19 @@ import java.io.Serializable;
 
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@ApiModel(value = "Entidade de transferência de Tipo Amigo")
+@ApiModel(value = "Entidade de transferência de Categoria")
 public @Data
-class TipoAmigoDTO  implements Serializable {
+class CategoriaDTO  implements Serializable {
 
-    @ApiModelProperty(value = "id do Tipo Amigo")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8045874021076000348L;
+
+	@ApiModelProperty(value = "id da Categoria")
     private Long id;
 
-    @ApiModelProperty(value = "Nome do Tipo Amigo")
-    private String nome;
+    @ApiModelProperty(value = "Nome da Categoria")
+    private String categoria;
 
 }
