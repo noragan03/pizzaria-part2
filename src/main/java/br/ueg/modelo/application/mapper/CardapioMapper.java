@@ -18,6 +18,7 @@ public interface CardapioMapper {
      * @param cardapio
      * @return
      */
+	
     @Mapping(source = "categoria.id", target = "idCategoria")
     @Mapping(source = "categoria.categoria", target = "nomeCategoria")
     public CardapioDTO toDTO(Cardapio cardapio);

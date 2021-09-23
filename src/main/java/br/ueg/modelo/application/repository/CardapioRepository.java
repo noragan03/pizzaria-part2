@@ -51,7 +51,7 @@ public interface CardapioRepository extends JpaRepository<Cardapio, Long>, Carda
      * @return
      */
     @Query("SELECT cardapio from Cardapio cardapio" +
-            " INNER JOIN FETCH cardapio.categoria")
+            " INNER JOIN FETCH cardapio.categoria categoria")
     public List<Cardapio> getTodos();
 
     /**
@@ -61,7 +61,7 @@ public interface CardapioRepository extends JpaRepository<Cardapio, Long>, Carda
      * @return
      */
     @Query("SELECT cardapio from Cardapio cardapio" +
-            " INNER JOIN FETCH cardapio.categoria" +
+            " INNER JOIN FETCH cardapio.categoria categoria" +
             " WHERE cardapio.id = :idCardapio ")
     public Optional<Cardapio> findByIdFetch( @Param("idCardapio") final Long idCardapio);
 

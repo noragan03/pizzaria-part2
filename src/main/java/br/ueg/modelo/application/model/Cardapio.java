@@ -1,12 +1,26 @@
 package br.ueg.modelo.application.model;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.ueg.modelo.application.configuration.Constante;
 import br.ueg.modelo.application.enums.StatusSimNao;
 import br.ueg.modelo.application.enums.converter.StatusSimNaoConverter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "TBL_CARDAPIO", schema = Constante.DATABASE_OWNER)
@@ -32,11 +46,8 @@ class Cardapio {
     @Column(name = "BORDA_RECHEADA", length = 1, nullable = false)
     private StatusSimNao bordaRecheada;
 
-	/*@Column(name = "BORDA_RECHEADA", nullable = false)
-	private Boolean bordaRecheada;*/
-    
-	/*@Column(name = "DATA_ALTERACAO",nullable=false)
-	 * private Data dataAlteracao*/
+    @Column(name = "DATA_ATUALIZACAO")
+   	private LocalDate data;
     
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)

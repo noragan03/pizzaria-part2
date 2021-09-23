@@ -24,7 +24,7 @@ public class CardapioRepositoryImpl implements CardapioRepositoryCustom {
         Map<String, Object> parametros = new HashMap<>();
         StringBuilder jpql = new StringBuilder();
         jpql.append(" SELECT DISTINCT cardapio FROM Cardapio cardapio");
-        jpql.append(" INNER JOIN FETCH cardapio.cardapio cardapio");
+        jpql.append(" INNER JOIN FETCH cardapio.categoria categoria");
 
         jpql.append(" WHERE 1=1 ");
 
@@ -34,15 +34,15 @@ public class CardapioRepositoryImpl implements CardapioRepositoryCustom {
         }
 
         if (filtroCardapioDTO.getIdCategoria()!=null) {
-            jpql.append(" AND cardapio.sabor.id = :idCategoria ");
-            parametros.put("idTipoCardapio", filtroCardapioDTO.getIdCategoria());
+            jpql.append(" AND cardapio.sabor.id = :idCategoria "); //nome do parametro
+            parametros.put("idCategoria", filtroCardapioDTO.getIdCategoria());
         }
 
         /*Verificar se necessario para o nosso caso - Modelo Cardapio deve ser enum*/
         
         if (filtroCardapioDTO.getBordaRecheada() != null) {
             jpql.append(" AND cardapio.bordaRecheada = :bordaRecheada ");
-            parametros.put("bordaRecheada", filtroCardapioDTO.getBordaRecheada()? StatusSimNao.SIM:StatusSimNao.NAO);
+            parametros.put("bordaRecheada", filtroCardapioDTO.getBordaRecheada());
         }
 
         TypedQuery<Cardapio> query = entityManager.createQuery(jpql.toString(), Cardapio.class);

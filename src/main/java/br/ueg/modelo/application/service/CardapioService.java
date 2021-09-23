@@ -63,8 +63,6 @@ public class CardapioService {
             vazio = Boolean.FALSE;
         }
         
-        //Falta filtroDTO do preco
-        
         if (vazio) {
             throw new BusinessException(SistemaMessageCode.ERRO_FILTRO_INFORMAR_OUTRO);
         }
@@ -147,6 +145,10 @@ public class CardapioService {
         }
 
         if (cardapio.getBordaRecheada()==null) {
+            vazio = Boolean.TRUE;
+        }
+
+        if (cardapio.getPreco()==null){
             vazio = Boolean.TRUE;
         }
 

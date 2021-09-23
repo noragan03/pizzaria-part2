@@ -85,12 +85,19 @@ public class AppStartupRunner implements ApplicationRunner {
 
         Modulo moduloAmigo = createModuloAmigo();
 
-        Grupo grupo = createGrupoAdmin(Arrays.asList(moduloUsuario, moduloGrupo,moduloTipoAmigo, moduloAmigo));
+        Modulo moduloCategoria = createModuloCategoria();
+
+        Modulo moduloCardapio = createModuloCardapio();
+
+        Grupo grupo = createGrupoAdmin(Arrays.asList(moduloUsuario, moduloGrupo,moduloTipoAmigo, moduloAmigo, moduloCategoria, moduloCardapio));
 
         createUsuarioAdmin(grupo);
 
         createTipoAmigos();
         createAmigos();
+        createCategorias();
+        createCardapios();
+
     }
 
     /**
@@ -117,8 +124,6 @@ public class AppStartupRunner implements ApplicationRunner {
 
         amigoRepository.save(conhecido);
 
-
-
     }
 
     /**
@@ -138,6 +143,49 @@ public class AppStartupRunner implements ApplicationRunner {
         tipoAmigoRepository.save(tipoMelhorAmigo);
     }
 
+    private void createCardapios() {
+
+        Categoria categoria = categoriaRepository.findById(1L).get();
+        Categoria tipoCategoria = categoriaRepository.findById(2L).get();
+
+        Cardapio pizzaSal = new Cardapio();
+        pizzaSal.setBordaRecheada(StatusSimNao.SIM);
+        pizzaSal.setIngredientes("Molho,queijo,pepperoni");
+        pizzaSal.setData(LocalDate.now());
+        pizzaSal.setSabor("Pepperoni");
+        pizzaSal.setPreco(10.0);
+        pizzaSal.setCategoria(categoria);
+
+        cardapioRepository.save(pizzaSal);
+
+        Cardapio pizzaDoce = new Cardapio();
+        pizzaDoce.setBordaRecheada(StatusSimNao.SIM);
+        pizzaDoce.setData(LocalDate.now());
+        pizzaDoce.setIngredientes("Queijo e chocolate");
+        pizzaDoce.setPreco(10.0);
+        pizzaDoce.setSabor("Chocolate");
+        pizzaDoce.setCategoria(tipoCategoria);
+
+        cardapioRepository.save(pizzaDoce);
+
+    }
+    private void createCategorias() {
+        Categoria tipoSalgada=new Categoria();
+        tipoSalgada.setCategoria("Salgada");
+        categoriaRepository.save(tipoSalgada);
+
+        Categoria tipoDoce = new Categoria();
+        tipoDoce.setCategoria("Doce");
+        categoriaRepository.save(tipoDoce);
+
+//        Categoria tipoVegetariana = new Categoria();
+//        tipoVegetariana.setCategoria("Vegetariana");
+//        categoriaRepository.save(tipoVegetariana);
+//
+//        Categoria tipoVegana = new Categoria();
+//        tipoVegana.setCategoria("Vegana");
+//        categoriaRepository.save(tipoVegana);
+    }
     /**
      * Cria o Modulo de tipo de amigo e salva.
      * @return tipo amigo salvo no banco.
@@ -211,7 +259,79 @@ public class AppStartupRunner implements ApplicationRunner {
 
         return moduloAmigo;
     }
+    /**
+     * Cria o Modulo de categoria e salva.
+     * @return categoria salvo no banco.
+     */
+    private Modulo createModuloCategoria() {
+        Modulo moduloCategoria = new Modulo();
 
+        moduloCategoria.setMnemonico("CATEGORIA");
+        moduloCategoria.setNome("Manter Categoria ");
+        moduloCategoria.setStatus(StatusAtivoInativo.ATIVO);
+        moduloCategoria = moduloRepository.save(moduloCategoria);
+
+        Set<Funcionalidade> funcionalidades = getFuncionalidadesCrud().stream()
+                .filter(
+                        funcionalidade -> !funcionalidade.getMnemonico().equals("ATIVAR_INATIVAR")
+                ).collect(Collectors.toSet());
+
+        Funcionalidade fManter = new Funcionalidade();
+        fManter.setMnemonico("REMOVER");
+        fManter.setNome("Remover");
+        fManter.setStatus(StatusAtivoInativo.ATIVO);
+        funcionalidades.add(fManter);
+
+
+        for(Funcionalidade funcionalidade: funcionalidades){
+            funcionalidade.setModulo(moduloCategoria);
+        }
+
+        moduloCategoria.setFuncionalidades(funcionalidades);
+        moduloCategoria = moduloRepository.save(moduloCategoria);
+
+        return moduloCategoria;
+    }
+
+    /**
+     * Cria o Modulo de cardapio e salva.
+     * @return cardapio salvo no banco.
+     */
+    private Modulo createModuloCardapio() {
+        Modulo moduloCardapio = new Modulo();
+
+        moduloCardapio.setMnemonico("CARDAPIO");
+        moduloCardapio.setNome("Manter Cardapio ");
+        moduloCardapio.setStatus(StatusAtivoInativo.ATIVO);
+        moduloCardapio = moduloRepository.save(moduloCardapio);
+
+        Set<Funcionalidade> funcionalidades = getFuncionalidadesCrud().stream()
+                .filter(
+                        funcionalidade -> !funcionalidade.getMnemonico().equals("ATIVAR_INATIVAR")
+                ).collect(Collectors.toSet());
+
+        Funcionalidade fManter = new Funcionalidade();
+        fManter.setMnemonico("REMOVER");
+        fManter.setNome("Remover");
+        fManter.setStatus(StatusAtivoInativo.ATIVO);
+        funcionalidades.add(fManter);
+
+        Funcionalidade fCardapio = new Funcionalidade();
+        fCardapio.setMnemonico("STATUS");
+        fCardapio.setNome("Possui borda recheada");
+        fCardapio.setStatus(StatusAtivoInativo.ATIVO);
+        funcionalidades.add(fCardapio);
+
+
+        for(Funcionalidade funcionalidade: funcionalidades){
+            funcionalidade.setModulo(moduloCardapio);
+        }
+
+        moduloCardapio.setFuncionalidades(funcionalidades);
+        moduloCardapio = moduloRepository.save(moduloCardapio);
+
+        return moduloCardapio;
+    }
     private void createUsuarioAdmin(Grupo grupo) {
         Usuario usuario = new Usuario();
         usuario.setStatus(StatusAtivoInativo.ATIVO);

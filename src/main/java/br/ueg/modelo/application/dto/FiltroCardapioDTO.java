@@ -1,14 +1,13 @@
 package br.ueg.modelo.application.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import br.ueg.modelo.application.enums.StatusSimNao;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.io.Serializable;
-import java.time.LocalDate;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ApiModel(value = "Dados do filtro de pesquisa de Cardapio")
@@ -25,5 +24,5 @@ public @Data class FiltroCardapioDTO implements Serializable {
     private Long idCategoria;
 
     @ApiModelProperty(value = "Indica se é borda recheada")
-    private Boolean bordaRecheada;
+    private StatusSimNao bordaRecheada;
 }

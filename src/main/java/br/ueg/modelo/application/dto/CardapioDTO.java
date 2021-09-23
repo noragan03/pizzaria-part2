@@ -1,12 +1,16 @@
 package br.ueg.modelo.application.dto;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import br.ueg.modelo.application.enums.StatusSimNao;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -23,7 +27,7 @@ class CardapioDTO implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "Sabor da Pizza")
-    private String nome;
+    private String sabor;
 
     @ApiModelProperty(value = "Id da Categoria")
     private Long idCategoria;
@@ -32,6 +36,15 @@ class CardapioDTO implements Serializable {
     private String nomeCategoria;
 
     @ApiModelProperty(value = "Indica se a borda é recheada")
-    private Boolean bordaRecheada;
+    private StatusSimNao bordaRecheada;
 
+    @ApiModelProperty(value = "Preco da pizza")
+    private Double preco;
+
+    @ApiModelProperty(value = "Indica se a borda é recheada")
+    private String ingredientes;
+
+    @ApiModelProperty(value = "data de cadastro")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDate data;
 }

@@ -52,12 +52,13 @@ public class CardapioController extends AbstractController {
      * @param cardapioDTO
      * @return
      */
-    @PreAuthorize("hasRole('ROLE_AMIGO_ALTERAR')")
+    @PreAuthorize("hasRole('ROLE_CARDAPIO_ALTERAR')")
     @ApiOperation(value = "Altera as informações de Cardapio.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = CardapioDTO.class),
             @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class)
     })
+    
     @PutMapping(path = "/{id:[\\d]+}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> alterar(
             @ApiParam(value = "Código do Cardapio", required = true) @PathVariable final BigDecimal id,
@@ -75,7 +76,7 @@ public class CardapioController extends AbstractController {
      * @param id
      * s@return
      */
-    @PreAuthorize("hasRole('ROLE_AMIGO_PESQUISAR')")
+    @PreAuthorize("hasRole('ROLE_CARDAPIO_PESQUISAR')")
     @ApiOperation(value = "Retorna as informações do Cardapio pelo id informado.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = CardapioDTO.class),
@@ -123,7 +124,7 @@ public class CardapioController extends AbstractController {
      *
      * @return
      */
-    @PreAuthorize("hasRole('ROLE_AMIGO_PESQUISAR')")
+   @PreAuthorize("hasRole('ROLE_CARDAPIO_PESQUISAR')")
     @ApiOperation(value = "Retorna uma lista de Cardapios cadastrados.", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = CardapioDTO.class),
@@ -147,7 +148,7 @@ public class CardapioController extends AbstractController {
      * @param id
      * @return
      */
-    @PreAuthorize("hasRole('ROLE_AMIGO_REMOVER')")
+    @PreAuthorize("hasRole('ROLE_CARDAPIO_REMOVER')")
     @ApiOperation(value = "Remove um Cardapio pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = CardapioDTO.class),
@@ -167,15 +168,15 @@ public class CardapioController extends AbstractController {
      * @param id
      * @return
      */
-    @PreAuthorize("hasRole('ROLE_AMIGO_STATUS')")
-    @ApiOperation(value = "Tonar Cardapio do Cardapio pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_CARDAPIO_STATUS')")
+    @ApiOperation(value = "Tonar Pizza borda recheada pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = CardapioDTO.class),
             @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
             @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
     })
-    @PutMapping(path = "/{id:[\\d]+}/tornar-cardapio", produces = { MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<?> tonarCardapio(@ApiParam(value = "Id do Cardapio", required = true) @PathVariable final BigDecimal id) {
+    @PutMapping(path = "/{id:[\\d]+}/tornar-bordaRecheada", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<?> tornarCardapio(@ApiParam(value = "Id do Cardapio", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Cardapio cardapio = cardapioService.getById(id.longValue());
         cardapio.setBordaRecheada(StatusSimNao.SIM);
@@ -189,14 +190,14 @@ public class CardapioController extends AbstractController {
      * @param id
      * @return
      */
-    @PreAuthorize("hasRole('ROLE_AMIGO_STATUS')")
-    @ApiOperation(value = "Deixar de ser Cardapio do Cardapio pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_CARDAPIO_STATUS')")
+    @ApiOperation(value = "Deixar de ser bordaRecheada do Cardapio pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = CardapioDTO.class),
             @ApiResponse(code = 400, message = "Bad Request", response = MessageResponse.class),
             @ApiResponse(code = 404, message = "Not Found", response = MessageResponse.class)
     })
-    @PutMapping(path = "/{id:[\\d]+}/deixar-cardapio", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping(path = "/{id:[\\d]+}/remover-bordaRecheada", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<?> deixarCardapio(@ApiParam(value = "Id do Cardapio", required = true) @PathVariable final BigDecimal id) {
         Validation.max("id", id, 99999999L);
         Cardapio cardapio = cardapioService.getById(id.longValue());

@@ -146,7 +146,7 @@ public class CategoriaService {
         Long count = categoriaRepository.countByNomeAndNotId(categoria.getCategoria(), categoria.getId());
 
         if (count > BigDecimal.ZERO.longValue()) {
-            throw new BusinessException(SistemaMessageCode.ERRO_TIPO_AMIGO_DUPLICADO);
+            throw new BusinessException(SistemaMessageCode.ERRO_CATEGORIA_DUPLICADA);
         }
     }
 

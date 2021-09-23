@@ -69,7 +69,10 @@ public enum SistemaMessageCode implements MessageCode {
 	ERRO_AMIGO_DUPLICADO("MSG-046", 400),
             
 	ERRO_PIZZA_DUPLICADA("MSG-047", 400),
+	
+	ERRO_CATEGORIA_DUPLICADA("MSG-048",400),
     ;
+	
 	private final String code;
 
 	private final Integer status;

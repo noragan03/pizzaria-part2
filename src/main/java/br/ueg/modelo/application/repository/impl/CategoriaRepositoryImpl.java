@@ -21,12 +21,12 @@ public class CategoriaRepositoryImpl implements CategoriaRepositoryCustom {
     public List<Categoria> findAllByFiltro(FiltroCategoriaDTO filtroCategoriaDTO) {
         Map<String, Object> parametros = new HashMap<>();
         StringBuilder jpql = new StringBuilder();
-        jpql.append(" SELECT DISTINCT grupo FROM Categoria categoria");
+        jpql.append(" SELECT DISTINCT categoria FROM Categoria categoria");
         
         jpql.append(" WHERE 1=1 ");
 
         if (!Util.isEmpty(filtroCategoriaDTO.getCategoria())) {
-            jpql.append(" AND UPPER(categoria.nomeCategoria) LIKE UPPER('%' || :nomeCategoria || '%')  ");
+            jpql.append(" AND UPPER(categoria.categoria) LIKE UPPER('%' || :nomeCategoria || '%')  ");
             parametros.put("nomeCategoria", filtroCategoriaDTO.getCategoria());
         }
 

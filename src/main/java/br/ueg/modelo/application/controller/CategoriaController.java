@@ -31,7 +31,7 @@ public class CategoriaController extends AbstractController {
     @Autowired
     private CategoriaService categoriaService;
 
-   //@PreAuthorize("hasRole('ROLE_CATEGORIA_INCLUIR')")
+    @PreAuthorize("hasRole('ROLE_CATEGORIA_INCLUIR')")
     @PostMapping
     @ApiOperation(value = "Inclusão/alteração de categoria.",
             notes = "Incluir/Alterar Categoria.")
@@ -52,7 +52,8 @@ public class CategoriaController extends AbstractController {
      * @param categoriaDTO
      * @return
      */
-    //@PreAuthorize("hasRole('ROLE_CATEGORIA_ALTERAR')")
+
+    @PreAuthorize("hasRole('ROLE_CATEGORIA_ALTERAR')")
     @ApiOperation(value = "Altera as informações de Categoria.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = CategoriaDTO.class),
@@ -76,7 +77,7 @@ public class CategoriaController extends AbstractController {
      * @param id
      * s@return
      */
-   // @PreAuthorize("hasRole('ROLE_CATEGORIA_PESQUISAR')")
+    @PreAuthorize("hasRole('ROLE_CATEGORIA_PESQUISAR')")
     @ApiOperation(value = "Retorna as informações do Categoria pelo id informado.", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = CategoriaDTO.class),
@@ -97,7 +98,7 @@ public class CategoriaController extends AbstractController {
      * @param filtroCategoriaDTO
      * @return
      */
-  //  @PreAuthorize("hasRole('ROLE_CATEGORIA_PESQUISAR')")
+    @PreAuthorize("hasRole('ROLE_CATEGORIA_PESQUISAR')")
     @ApiOperation(value = "Pesquisa de Categoria.",
             notes = "Recupera as informações de Categoria conforme dados informados no filtro de busca", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
@@ -125,7 +126,7 @@ public class CategoriaController extends AbstractController {
      *
      * @return
      */
-   // @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @ApiOperation(value = "Retorna uma lista de Categorias cadastrados.", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = CategoriaDTO.class),
@@ -150,7 +151,7 @@ public class CategoriaController extends AbstractController {
      * @param id
      * @return
      */
-   // @PreAuthorize("hasRole('ROLE_CATEGORIA_REMOVER')")
+    @PreAuthorize("hasRole('ROLE_CATEGORIA_REMOVER')")
     @ApiOperation(value = "Remove um Categoria pelo id informado.", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = CategoriaDTO.class),
